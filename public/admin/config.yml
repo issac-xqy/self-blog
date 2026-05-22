@@ -2,7 +2,7 @@ backend:
   name: github
   repo: issac-xqy/self-blog
   branch: master
-  base_url: https://xqy-blog.3131940292.workers.dev
+  base_url: https://self-blog.3131940292.workers.dev
 
 media_folder: public/images
 public_folder: /images
