@@ -22,6 +22,13 @@ export async function onRequest({ env, request }) {
   );
   const data = await tokenRes.json();
 
+  console.log("OAuth callback — status:", tokenRes.status);
+  if (data.error) {
+    console.log("OAuth error:", data.error, data.error_description);
+  }
+  console.log("OAuth scopes:", data.scope);
+  console.log("Token type:", data.token_type);
+
   const html = `<!doctype html><html><body><script>
     (function() {
       function recieveMessage(e) {
