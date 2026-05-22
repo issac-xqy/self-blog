@@ -95,22 +95,22 @@
     <td>
 
 ```text
-  🌗  暗色 / 亮色模式
+  🎨  创意 Hero 区
   ─────────────────
-  跟随系统偏好
-  手动一键切换
-  刷新不丢失状态
+  动态渐变背景
+  浮动几何装饰动画
+  文章/标签实时统计
 ```
 
 </td>
     <td>
 
 ```text
-  🔍  静态搜索
+  🌗  暗色 / 亮色模式
   ─────────────────
-  Pagefind 驱动
-  构建时索引
-  零运行时开销
+  跟随系统偏好
+  手动一键切换
+  刷新不丢失状态
 ```
 
 </td>
@@ -130,11 +130,57 @@
     <td>
 
 ```text
-  📰  RSS + Sitemap
+  📊  阅读进度条
   ─────────────────
-  标准 RSS 2.0 输出
-  完整站点地图
-  让搜索引擎找到你
+  页面顶部渐变色进度
+  实时反映阅读进度
+  纯 CSS + JS 零依赖
+```
+
+</td>
+    <td>
+
+```text
+  🧭  目录导航
+  ─────────────────
+  桌面端 sticky 侧栏
+  scroll-spy 高亮当前
+  移动端折叠展开
+```
+
+</td>
+    <td>
+
+```text
+  📋  代码复制
+  ─────────────────
+  代码块悬停显示按钮
+  一键复制到剪贴板
+  2 秒反馈"已复制!"
+```
+
+</td>
+  </tr>
+  <tr>
+    <td>
+
+```text
+  ⏱️  阅读时间
+  ─────────────────
+  智能估算阅读时长
+  基于中文字符密度
+  帮助读者管理时间
+```
+
+</td>
+    <td>
+
+```text
+  ☁️  标签云
+  ─────────────────
+  渐变色气泡布局
+  动态字号按文章数
+  hover 放大浮动特效
 ```
 
 </td>
@@ -149,6 +195,19 @@
 ```
 
 </td>
+  </tr>
+  <tr>
+    <td>
+
+```text
+  📰  RSS + Sitemap
+  ─────────────────
+  标准 RSS 2.0 输出
+  完整站点地图
+  让搜索引擎找到你
+```
+
+</td>
     <td>
 
 ```text
@@ -157,6 +216,17 @@
   npm run new 一键创建
   自动生成 frontmatter
   本地写完 Git 推送即上线
+```
+
+</td>
+    <td>
+
+```text
+  🔝  回到顶部
+  ─────────────────
+  右下角浮动按钮
+  滚动 > 400px 淡入
+  平滑滚动 + 毛玻璃
 ```
 
 </td>
@@ -244,11 +314,16 @@ npm run preview
 <pre style="background:#1e293b;color:#e2e8f0;border-radius:8px;padding:20px;overflow-x:auto;line-height:1.7">
 <span style="color:#60a5fa">src/</span>
 ├─ <span style="color:#60a5fa">components/</span>      <span style="color:#64748b">可复用 UI 组件</span>
-│  ├─ <span style="color:#facc15">Header.astro</span>      <span style="color:#64748b">导航栏 + 主题切换</span>
-│  ├─ <span style="color:#facc15">Footer.astro</span>      <span style="color:#64748b">页脚 + RSS/Sitemap 链接</span>
-│  ├─ <span style="color:#facc15">PostCard.astro</span>    <span style="color:#64748b">文章摘要卡片</span>
-│  ├─ <span style="color:#facc15">TagBadge.astro</span>    <span style="color:#64748b">标签徽章</span>
-│  └─ <span style="color:#facc15">BaseHead.astro</span>    <span style="color:#64748b">SEO Meta / OG 全配置</span>
+│  ├─ <span style="color:#facc15">HeroSection.astro</span>   <span style="color:#64748b">首页动态渐变背景 + 统计</span>
+│  ├─ <span style="color:#facc15">ReadingProgress.astro</span> <span style="color:#64748b">页面顶部渐变色阅读进度条</span>
+│  ├─ <span style="color:#facc15">TableOfContents.astro</span> <span style="color:#64748b">文章目录 + scroll-spy 高亮</span>
+│  ├─ <span style="color:#facc15">BackToTop.astro</span>    <span style="color:#64748b">右下角浮动回到顶部按钮</span>
+│  ├─ <span style="color:#facc15">CopyCode.astro</span>     <span style="color:#64748b">代码块一键复制</span>
+│  ├─ <span style="color:#facc15">Header.astro</span>       <span style="color:#64748b">玻璃拟态导航 + 暗色切换动画</span>
+│  ├─ <span style="color:#facc15">Footer.astro</span>       <span style="color:#64748b">页脚 + 渐变装饰 + RSS/Sitemap</span>
+│  ├─ <span style="color:#facc15">PostCard.astro</span>     <span style="color:#64748b">卡片化文章摘要 + hover 动效</span>
+│  ├─ <span style="color:#facc15">TagBadge.astro</span>     <span style="color:#64748b">标签徽章</span>
+│  └─ <span style="color:#facc15">BaseHead.astro</span>     <span style="color:#64748b">SEO Meta / OG 全配置</span>
 │
 ├─ <span style="color:#60a5fa">content/</span>          <span style="color:#64748b">内容集合定义 + 查询 API</span>
 │  ├─ <span style="color:#facc15">config.ts</span>        <span style="color:#64748b">Zod Schema 校验 frontmatter</span>
@@ -259,14 +334,14 @@ npm run preview
 │  └─ <span style="color:#facc15">BaseLayout.astro</span>  <span style="color:#64748b">全局 HTML 壳 + 无闪烁暗色模式</span>
 │
 ├─ <span style="color:#60a5fa">pages/</span>            <span style="color:#64748b">路由 & 特殊端点</span>
-│  ├─ <span style="color:#facc15">index.astro</span>       <span style="color:#64748b">首页 ── 最近文章列表</span>
-│  ├─ <span style="color:#60a5fa">blog/</span>            <span style="color:#64748b">[/...slug] 动态路由 · 单篇文章页</span>
-│  ├─ <span style="color:#60a5fa">tags/</span>            <span style="color:#64748b">[/tag] 标签聚合 · 按标签筛选</span>
+│  ├─ <span style="color:#facc15">index.astro</span>       <span style="color:#64748b">首页 ── Hero + 卡片交错动画</span>
+│  ├─ <span style="color:#60a5fa">blog/</span>            <span style="color:#64748b">时间轴布局 · TOC · 分享按钮 · 阅读时间</span>
+│  ├─ <span style="color:#60a5fa">tags/</span>            <span style="color:#64748b">渐变色标签云 · 按标签筛选</span>
 │  ├─ <span style="color:#facc15">about.astro</span>       <span style="color:#64748b">关于页</span>
 │  ├─ <span style="color:#facc15">rss.xml.ts</span>        <span style="color:#64748b">RSS 2.0 订阅源端点</span>
 │  └─ <span style="color:#60a5fa">og/</span>              <span style="color:#64748b">社交分享卡片图片生成 (PNG)</span>
 │
-├─ <span style="color:#60a5fa">styles/</span>           <span style="color:#64748b">全局样式表</span>
+├─ <span style="color:#60a5fa">styles/</span>           <span style="color:#64748b">全局样式 + 8 组 keyframes 动画</span>
 ├─ <span style="color:#60a5fa">utils/</span>            <span style="color:#64748b">工具函数</span>
 └─ <span style="color:#facc15">site.config.ts</span>    <span style="color:#64748b">── 站点元信息 (在这里改标题/URL)</span>
 
