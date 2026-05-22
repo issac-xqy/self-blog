@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getAllPosts } from "../../content/index.ts";
+
+const posts = await getAllPosts();
+---
+
+<BaseLayout
+  title="全部文章"
+  description="所有已发布的文章列表。"
+>
+  <div class="container-blog py-12">
+    <h1 class="mb-8 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+      全部文章
+    </h1>
+    <section>
+      {
+        posts.map((post) => <PostCard post={post} />)
+      }
+    </section>
+  </div>
+</BaseLayout>

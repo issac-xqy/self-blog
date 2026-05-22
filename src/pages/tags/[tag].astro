@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getPostsByTag, getAllTags, tagSlug } from "../../content/index.ts";
+
+export async function getStaticPaths() {
+  const tags = await getAllTags();
+  return tags.map(({ tag }) => ({
+    params: { tag: tagSlug(tag) },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const posts = await getPostsByTag(tag);
+---
+
+<BaseLayout
+  title={`标签: ${tag}`}
+  description={`带有标签 "${tag}" 的文章列表。`}
+>
+  <div class="container-blog py-12">
+    <h1 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+      标签: {tag}
+    </h1>
+    <p class="mb-8 text-gray-500 dark:text-gray-400">
+      共 {posts.length} 篇文章
+    </p>
+    <section>
+      {posts.map((post) => <PostCard post={post} />)}
+    </section>
+  </div>
+</BaseLayout>

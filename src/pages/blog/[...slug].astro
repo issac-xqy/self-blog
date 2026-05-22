@@ -1,0 +1,77 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TagBadge from "../../components/TagBadge.astro";
+import { formatDate } from "../../utils/date";
+import { getRelatedPosts, postSlug } from "../../content/index.ts";
+import PostCard from "../../components/PostCard.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts
+    .filter((p) => !p.data.draft)
+    .map((p) => ({ params: { slug: postSlug(p) }, props: { post: p } }));
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, tags } = post.data;
+const { Content } = await post.render();
+const relatedPosts = await getRelatedPosts(post);
+const postUrl = new URL(`/blog/${postSlug(post)}/`, Astro.site).href;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  type="article"
+  pubDate={pubDate}
+  tags={tags}
+  ogImage={`/og/${postSlug(post)}.png`}
+  canonicalURL={postUrl}
+>
+  <article class="container-blog py-12">
+    <!-- Header -->
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+        {title}
+      </h1>
+      <p class="mt-3 text-lg text-gray-500 dark:text-gray-400">
+        {description}
+      </p>
+      <div class="mt-4 flex flex-wrap items-center gap-3 text-sm text-gray-400 dark:text-gray-500">
+        <time datetime={pubDate.toISOString()}>
+          发布于 {formatDate(pubDate)}
+        </time>
+        {
+          updatedDate && (
+            <span>· 更新于 {formatDate(updatedDate)}</span>
+          )
+        }
+      </div>
+      {
+        tags.length > 0 && (
+          <div class="mt-3 flex flex-wrap gap-2">
+            {tags.map((tag) => <TagBadge tag={tag} />)}
+          </div>
+        )
+      }
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-gray max-w-none dark:prose-invert">
+      <Content />
+    </div>
+
+    <!-- Related posts -->
+    {
+      relatedPosts.length > 0 && (
+        <aside class="mt-16 border-t border-gray-200 pt-8 dark:border-gray-800">
+          <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
+            相关文章
+          </h2>
+          {relatedPosts.map((p) => <PostCard post={p} />)}
+        </aside>
+      )
+    }
+  </article>
+</BaseLayout>

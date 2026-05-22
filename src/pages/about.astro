@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="关于"
+  description="关于我和这个博客。"
+>
+  <div class="container-blog py-12">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+      关于
+    </h1>
+    <div class="prose prose-gray mt-8 max-w-none dark:prose-invert">
+      <p>
+        你好，我是一名全栈开发者，专注于前端架构和工程化实践。
+      </p>
+      <p>
+        这个博客用来记录我在技术上的思考和探索。内容涵盖：
+      </p>
+      <ul>
+        <li>前端框架和工具链</li>
+        <li>CSS 和设计系统</li>
+        <li>Node.js 和后端开发</li>
+        <li>软件架构和设计模式</li>
+        <li>开发工具和工作流优化</li>
+      </ul>
+      <h2>关于这个站点</h2>
+      <p>
+        本博客使用 <a href="https://astro.build">Astro</a> 构建，
+        样式基于 <a href="https://tailwindcss.com">Tailwind CSS</a>，
+        文章使用 MDX 编写，
+        部署在 Cloudflare Pages 上。
+      </p>
+      <p>
+        代码完全开源，欢迎在 GitHub 上查看。
+      </p>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import { SITE } from "../site.config.ts";
+---
+
+<footer class="mt-20 border-t border-gray-200 py-8 text-center text-sm text-gray-400 dark:border-gray-800 dark:text-gray-500">
+  <p>&copy; {new Date().getFullYear()} {SITE.title} · 用 Astro 构建</p>
+  <p class="mt-1">
+    <a href="/rss.xml" class="text-gray-400 underline-offset-2 hover:text-accent dark:hover:text-accent-dark">RSS</a>
+    <span class="mx-2">·</span>
+    <a href="/sitemap-index.xml" class="text-gray-400 underline-offset-2 hover:text-accent dark:hover:text-accent-dark">Sitemap</a>
+  </p>
+</footer>

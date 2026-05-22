@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased font-sans;
+  }
+
+  .dark body,
+  body.dark {
+    @apply bg-gray-950 text-gray-100;
+  }
+
+  /* Override prose default font — must use the CJK font stack */
+  .prose {
+    font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", "Segoe UI", system-ui, sans-serif;
+  }
+
+  /* Lighter code background than prose's default */
+  pre {
+    @apply !bg-gray-900 dark:!bg-gray-800;
+  }
+}
+
+@layer components {
+  .container-blog {
+    @apply mx-auto max-w-3xl px-4 sm:px-6;
+  }
+}

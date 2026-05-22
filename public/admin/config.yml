@@ -1,0 +1,23 @@
+backend:
+  name: github
+  repo: issac-xqy/self-blog
+  branch: master
+  base_url: https://xqy-blog.3131940292.workers.dev
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: blog
+    label: 文章
+    folder: src/content/blog
+    create: true
+    extension: mdx
+    format: frontmatter
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 摘要, name: description, widget: text }
+      - { label: 日期, name: pubDate, widget: datetime, format: YYYY-MM-DD }
+      - { label: 标签, name: tags, widget: list, default: [] }
+      - { label: 草稿, name: draft, widget: boolean, default: false, required: false }
+      - { label: 正文, name: body, widget: markdown }

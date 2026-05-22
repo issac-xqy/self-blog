@@ -1,0 +1,13 @@
+---
+import { tagSlug } from "../content/index.ts";
+
+export interface Props {
+  tag: string;
+}
+
+const { tag } = Astro.props;
+---
+
+<a href={`/tags/${tagSlug(tag)}/`} class="tag-badge">
+  {tag}
+</a>

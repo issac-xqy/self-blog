@@ -1,0 +1,70 @@
+---
+title: "现代 CSS 布局指南"
+description: "深入理解 Grid、Container Queries 和 CSS Nesting，告别对 CSS-in-JS 的依赖。"
+pubDate: 2026-05-18
+tags: ["CSS", "前端"]
+draft: false
+---
+
+## Grid 不是 Flexbox 的替代品
+
+很多开发者学会 Grid 后就放弃了 Flexbox，这是错误的。两者有不同的适用场景：
+
+<div class="callout callout-info">
+  <strong>经验法则</strong>：一维布局用 Flexbox，二维布局用 Grid。不要用一个替代另一个。
+</div>
+
+### Flexbox 的最佳场景
+
+- 导航栏（一维水平排列）
+- 卡片内元素的垂直排列
+- 表单输入框 + 按钮的行内对齐
+
+### Grid 的最佳场景
+
+- 页面整体布局（header / main / sidebar / footer）
+- 图片画廊
+- 仪表盘卡片网格
+
+## Container Queries 改变了组件设计
+
+Container Queries 让我们可以基于**容器宽度**而非视口宽度做响应式：
+
+```css
+/* 传统作法：基于视口 */
+@media (min-width: 768px) {
+  .card { flex-direction: row; }
+}
+
+/* 现代作法：基于容器 */
+@container (min-width: 400px) {
+  .card { flex-direction: row; }
+}
+```
+
+<div class="callout callout-tip">
+  Container Queries 在 2024 年所有主流浏览器已全面支持，可以放心使用。
+</div>
+
+## CSS Nesting 是真正的游戏规则改变者
+
+原生的 CSS 嵌套消除了对 Sass/SCSS 的最后一个硬依赖：
+
+```css
+.card {
+  padding: 1rem;
+
+  & .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+```
+
+## 总结
+
+2026 年了，CSS 平台能力已经强到可以覆盖大部分 CSS-in-JS 的使用场景。善用平台能力，减少依赖。

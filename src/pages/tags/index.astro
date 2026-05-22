@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllTags, tagSlug } from "../../content/index.ts";
+
+const tags = await getAllTags();
+---
+
+<BaseLayout
+  title="标签"
+  description="按标签浏览文章。"
+>
+  <div class="container-blog py-12">
+    <h1 class="mb-8 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+      标签
+    </h1>
+    <div class="flex flex-wrap gap-3">
+      {
+        tags.map(({ tag, count }) => (
+          <a
+            href={`/tags/${tagSlug(tag)}/`}
+            class="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 no-underline transition-colors hover:bg-accent hover:text-white dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-accent-dark"
+          >
+            {tag}
+            <span class="text-xs text-gray-400">{count}</span>
+          </a>
+        ))
+      }
+    </div>
+    {
+      tags.length === 0 && (
+        <p class="text-gray-400">还没有标签。</p>
+      )
+    }
+  </div>
+</BaseLayout>

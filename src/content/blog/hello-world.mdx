@@ -1,0 +1,45 @@
+---
+title: "博客搭建记：从选型到上线"
+description: "记录用 Astro + Tailwind 从零搭建个人博客的全过程，包括架构选型、工程化细节和部署方案。"
+pubDate: 2026-05-20
+tags: ["博客", "Astro", "前端工程"]
+---
+
+## 为什么自己搭博客
+
+市面上的博客平台很多，但作为开发者，有几个理由值得自己动手：
+
+1. **完全控制** — 从 URL 结构到样式细节，不需要受平台约束
+2. **现代技术实践** — 博客是试验新技术栈的最佳沙盒
+3. **Markdown 写作流** — 编辑器里写完，Git 推送即上线
+4. **零成本运营** — 静态站点托管在 Cloudflare Pages 或 GitHub Pages，完全免费
+
+## 技术选型
+
+这套博客的核心架构是 **Astro SSG + Tailwind CSS + MDX**。
+
+- **Astro** 是构建时框架，默认输出零 JavaScript 的纯 HTML 页面
+- **Tailwind** 处理排版和视觉细节
+- **MDX** 让你在 Markdown 里直接写组件
+
+## 代码高亮测试
+
+```typescript
+// 一个简单的防抖函数
+export function debounce<T extends (...args: any[]) => void>(
+  fn: T,
+  delay: number,
+): (...args: Parameters<T>) => void {
+  let timer: ReturnType<typeof setTimeout>;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+```
+
+## 总结
+
+搭建一个博客只需要半天时间。真正花时间的是持续写作。
+
+> 种一棵树最好的时间是十年前，其次是现在。

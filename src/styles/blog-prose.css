@@ -1,0 +1,93 @@
+/* ── Callout blocks ── */
+.callout {
+  @apply my-6 rounded-lg border-l-4 p-4 text-sm leading-relaxed;
+}
+
+.callout-info {
+  @apply border-blue-500 bg-blue-50 text-blue-900;
+}
+.dark .callout-info {
+  @apply border-blue-400 bg-blue-950 text-blue-200;
+}
+
+.callout-warn {
+  @apply border-amber-500 bg-amber-50 text-amber-900;
+}
+.dark .callout-warn {
+  @apply border-amber-400 bg-amber-950 text-amber-200;
+}
+
+.callout-tip {
+  @apply border-emerald-500 bg-emerald-50 text-emerald-900;
+}
+.dark .callout-tip {
+  @apply border-emerald-400 bg-emerald-950 text-emerald-200;
+}
+
+.callout-danger {
+  @apply border-red-500 bg-red-50 text-red-900;
+}
+.dark .callout-danger {
+  @apply border-red-400 bg-red-950 text-red-200;
+}
+
+/* ── Code block with filename ── */
+[data-code-title]::before {
+  content: attr(data-code-title);
+  @apply mb-0 block rounded-t-md bg-gray-800 px-4 py-2 text-xs font-mono text-gray-300;
+}
+.dark [data-code-title]::before {
+  @apply bg-gray-700;
+}
+
+[data-code-title] + pre,
+[data-code-title] + .astro-code {
+  @apply mt-0 rounded-t-none;
+}
+
+/* ── Footnotes ── */
+.footnotes {
+  @apply mt-12 border-t border-gray-200 pt-6 text-sm text-gray-500;
+}
+.dark .footnotes {
+  @apply border-gray-700 text-gray-400;
+}
+
+/* ── Table of contents ── */
+.toc {
+  @apply text-sm leading-relaxed;
+}
+
+.toc a {
+  @apply text-gray-500 no-underline transition-colors hover:text-accent;
+}
+.dark .toc a {
+  @apply text-gray-400;
+}
+
+.toc a[aria-current="true"] {
+  @apply font-medium text-accent;
+}
+
+/* ── Post card hover ── */
+.post-card:hover .post-card-title {
+  @apply text-accent;
+}
+
+/* ── Tags ── */
+.tag-badge {
+  @apply inline-block rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 no-underline transition-colors hover:bg-accent hover:text-white;
+}
+.dark .tag-badge {
+  @apply bg-gray-800 text-gray-400;
+}
+.dark .tag-badge:hover {
+  @apply bg-accent-dark text-white;
+}
+
+/* ── Print ── */
+@media print {
+  .no-print {
+    display: none;
+  }
+}

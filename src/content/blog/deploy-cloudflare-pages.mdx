@@ -1,0 +1,39 @@
+---
+title: "把个人博客部署到 Cloudflare Pages"
+description: "记录从零开始将 Astro 静态博客部署到 Cloudflare Pages，并配置自动 CI/CD 的完整流程。"
+pubDate: 2026-05-22
+tags: ["博客", "部署", "CI-CD"]
+---
+
+## 为什么选 Cloudflare Pages
+
+几个免费方案里，Cloudflare Pages 的综合体验最好：
+
+- 全球 CDN，国内访问速度尚可
+- 免费额度够个人博客用一辈子
+- Git 推送自动部署，不用手动操作
+
+## 准备工作
+
+1. Cloudflare 账号
+2. GitHub 仓库（代码已经推上去）
+3. 两个 Secrets 配好：`CLOUDFLARE_API_TOKEN` 和 `CLOUDFLARE_ACCOUNT_ID`
+
+## 部署流程
+
+代码推到 master 分支后，GitHub Actions 会自动执行：
+
+```bash
+npm ci          # 安装依赖
+npm run build   # astro build + pagefind 索引
+```
+
+然后 wrangler 把 `dist/` 目录推到 Cloudflare Pages。
+
+## 绑定自定义域名
+
+1. Cloudflare Dashboard → Workers & Pages → 你的项目
+2. 顶部 Tab 选「自定义域」
+3. 添加你的域名，Cloudflare 会自动配置 DNS
+
+整个流程从推代码到上线，大约两分钟。
