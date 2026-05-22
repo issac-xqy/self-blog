@@ -5,32 +5,30 @@ export async function onRequest({ env, request }) {
     return new Response("Missing code", { status: 400 });
   }
 
+  // Use HTTP Basic Auth — more reliable than body params
+  const credentials = btoa(`${env.OAUTH_CLIENT_ID}:${env.OAUTH_CLIENT_SECRET}`);
+
   const tokenRes = await fetch(
     "https://github.com/login/oauth/access_token",
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
         Accept: "application/json",
+        Authorization: `Basic ${credentials}`,
       },
-      body: JSON.stringify({
-        client_id: env.OAUTH_CLIENT_ID,
-        client_secret: env.OAUTH_CLIENT_SECRET,
-        code,
-      }),
+      body: new URLSearchParams({ code }),
     },
   );
   const data = await tokenRes.json();
 
-  // If GitHub returned an error, show it directly so we can see what went wrong
   if (data.error) {
     return new Response(
       `OAuth token 交换失败<br><br>
        <b>错误类型:</b> ${data.error}<br>
        <b>错误描述:</b> ${data.error_description || "无"}<br>
        <b>HTTP 状态:</b> ${tokenRes.status}<br>
-       <b>Client ID:</b> ${(env.OAUTH_CLIENT_ID || "").slice(0, 10)}…<br>
-       <b>Secret 长度:</b> ${(env.OAUTH_CLIENT_SECRET || "").length}`,
+       <b>Client ID:</b> ${(env.OAUTH_CLIENT_ID || "").slice(0, 10)}…`,
       {
         status: 500,
         headers: { "Content-Type": "text/html; charset=utf-8" },
@@ -38,7 +36,6 @@ export async function onRequest({ env, request }) {
     );
   }
 
-  // Success — check what scopes were actually granted
   console.log("OAuth success — scopes:", data.scope);
 
   const html = `<!doctype html><html><body><script>
