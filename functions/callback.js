@@ -66,6 +66,10 @@ export async function onRequest({ env, request }) {
     </div>
     <script>
       var tokenData = ${tokenJson};
+      // Some CMS versions need "token" instead of "access_token"
+      if (tokenData.access_token && !tokenData.token) {
+        tokenData.token = tokenData.access_token;
+      }
 
       // Browser-side test: call /user directly from JavaScript
       if (tokenData.access_token) {
