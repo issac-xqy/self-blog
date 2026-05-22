@@ -2,11 +2,38 @@
 import { SITE } from "../site.config.ts";
 ---
 
-<footer class="mt-20 border-t border-gray-200 py-8 text-center text-sm text-gray-400 dark:border-gray-800 dark:text-gray-500">
-  <p>&copy; {new Date().getFullYear()} {SITE.title} · 用 Astro 构建</p>
-  <p class="mt-1">
-    <a href="/rss.xml" class="text-gray-400 underline-offset-2 hover:text-accent dark:hover:text-accent-dark">RSS</a>
-    <span class="mx-2">·</span>
-    <a href="/sitemap-index.xml" class="text-gray-400 underline-offset-2 hover:text-accent dark:hover:text-accent-dark">Sitemap</a>
-  </p>
+<footer class="mt-20 border-t border-gray-200 py-10 dark:border-gray-800">
+  <div class="container-blog">
+    <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+      <!-- Left -->
+      <div class="text-center sm:text-left">
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+          {SITE.title}
+        </p>
+        <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-500">
+          &copy; {new Date().getFullYear()} {SITE.author}
+        </p>
+      </div>
+
+      <!-- Center: decorative divider -->
+      <div class="hidden h-0.5 w-12 rounded bg-gradient-to-r from-accent to-purple-500 sm:block dark:from-accent-dark dark:to-purple-400"></div>
+
+      <!-- Right: links -->
+      <div class="flex items-center gap-4 text-xs text-gray-400 dark:text-gray-500">
+        <a href="/rss.xml" class="inline-flex items-center gap-1 no-underline transition-colors hover:text-accent dark:hover:text-accent-dark">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+          RSS
+        </a>
+        <span class="text-gray-300 dark:text-gray-700">|</span>
+        <a href="/sitemap-index.xml" class="no-underline transition-colors hover:text-accent dark:hover:text-accent-dark">
+          Sitemap
+        </a>
+      </div>
+    </div>
+
+    <!-- Tech stack line -->
+    <p class="mt-6 text-center text-xs text-gray-300 dark:text-gray-700">
+      Astro · Tailwind CSS · MDX · Cloudflare Pages
+    </p>
+  </div>
 </footer>

@@ -4,5 +4,14 @@
     "strictNullChecks": true,
     "jsx": "preserve",
     "jsxImportSource": "react"
-  }
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "src/**/*",
+    "scripts/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

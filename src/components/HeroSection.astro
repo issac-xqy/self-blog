@@ -1,0 +1,71 @@
+---
+import { SITE } from "../site.config.ts";
+
+export interface Props {
+  postCount: number;
+  tagCount: number;
+}
+
+const { postCount, tagCount } = Astro.props;
+---
+
+<section class="relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+  <!-- Animated gradient background -->
+  <div
+    class="animate-gradient absolute inset-0 opacity-[0.06] dark:opacity-[0.10]"
+    style="
+      background: linear-gradient(135deg, #2563eb, #7c3aed, #db2777, #2563eb);
+      background-size: 300% 300%;
+    "
+  ></div>
+
+  <!-- Floating geometric decorations -->
+  <div
+    class="animate-float pointer-events-none absolute -left-10 top-10 h-48 w-48 rounded-full border border-blue-200 opacity-30 dark:border-blue-800 dark:opacity-20"
+    style="animation-delay: 0s;"
+  ></div>
+  <div
+    class="animate-float pointer-events-none absolute right-0 top-1/3 h-32 w-32 rounded-full border border-purple-200 opacity-25 dark:border-purple-800 dark:opacity-15"
+    style="animation-delay: -2s;"
+  ></div>
+  <div
+    class="animate-float pointer-events-none absolute bottom-10 left-1/3 h-20 w-20 rounded-full border border-pink-200 opacity-20 dark:border-pink-800 dark:opacity-10"
+    style="animation-delay: -4s;"
+  ></div>
+  <div
+    class="animate-float pointer-events-none absolute right-12 top-12 h-5 w-5 rounded-full bg-blue-300/40 dark:bg-blue-500/30"
+    style="animation-delay: -1.5s;"
+  ></div>
+  <div
+    class="animate-float pointer-events-none absolute bottom-1/4 left-16 h-3 w-3 rounded-full bg-purple-300/40 dark:bg-purple-500/30"
+    style="animation-delay: -3s;"
+  ></div>
+
+  <!-- Content -->
+  <div class="container-blog relative py-20 sm:py-28">
+    <div class="animate-fade-in-up">
+      <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl dark:text-gray-100">
+        {SITE.title}
+      </h1>
+      <p class="mt-4 max-w-xl text-lg leading-relaxed text-gray-500 dark:text-gray-400">
+        {SITE.description}
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="mt-10 flex animate-fade-in-up gap-8" style="animation-delay: 0.15s;">
+      <div class="flex items-center gap-2">
+        <span class="text-3xl font-bold text-accent dark:text-accent-dark">{postCount}</span>
+        <span class="text-sm text-gray-400">篇文章</span>
+      </div>
+      <div class="h-10 w-px bg-gray-200 dark:bg-gray-800"></div>
+      <div class="flex items-center gap-2">
+        <span class="text-3xl font-bold text-accent dark:text-accent-dark">{tagCount}</span>
+        <span class="text-sm text-gray-400">个标签</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom gradient fade -->
+  <div class="pointer-events-none absolute bottom-0 h-16 w-full bg-gradient-to-t from-white/60 to-transparent dark:from-gray-950/60"></div>
+</section>

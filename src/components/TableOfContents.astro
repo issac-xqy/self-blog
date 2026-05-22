@@ -1,0 +1,84 @@
+---
+export interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
+---
+
+{
+  items.length > 1 && (
+    <>
+      <!-- Desktop: sticky sidebar -->
+      <aside class="no-print hidden xl:block">
+        <nav class="toc-sidebar fixed top-28 max-h-[calc(100vh-8rem)] w-52 overflow-y-auto">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-400">目录</p>
+          <ul class="space-y-1.5 border-l-2 border-gray-200 pl-3 dark:border-gray-800">
+            {items.map((h) => (
+              <li>
+                <a
+                  href={`#${h.slug}`}
+                  data-toc-link={h.slug}
+                  class="block py-0.5 text-sm text-gray-500 no-underline transition-colors duration-200 hover:text-accent dark:text-gray-400 dark:hover:text-accent-dark"
+                  style={`padding-left: ${(h.depth - 2) * 12}px;`}
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Mobile: collapsible inline -->
+      <details class="toc-mobile mb-8 xl:hidden">
+        <summary class="cursor-pointer text-sm font-medium text-gray-500 dark:text-gray-400">
+          目录
+        </summary>
+        <ul class="mt-2 space-y-1 border-l-2 border-gray-200 pl-3 dark:border-gray-800">
+          {items.map((h) => (
+            <li>
+              <a
+                href={`#${h.slug}`}
+                class="block py-0.5 text-sm text-gray-500 no-underline hover:text-accent dark:text-gray-400 dark:hover:text-accent-dark"
+                style={`padding-left: ${(h.depth - 2) * 12}px;`}
+              >
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+
+      <script>
+        // Scroll-spy: highlight active TOC link
+        const links = document.querySelectorAll("[data-toc-link]");
+        if (links.length) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                const link = document.querySelector(`[data-toc-link="${e.target.id}"]`);
+                if (link) {
+                  if (e.isIntersecting) {
+                    link.style.color = "";
+                    link.style.fontWeight = "600";
+                  } else {
+                    link.style.color = "";
+                    link.style.fontWeight = "";
+                  }
+                }
+              });
+            },
+            { rootMargin: "-80px 0px -70% 0px" },
+          );
+          links.forEach((link) => {
+            const id = link.getAttribute("data-toc-link");
+            const target = id ? document.getElementById(id) : null;
+            if (target) observer.observe(target);
+          });
+        }
+      </script>
+    </>
+  )
+}

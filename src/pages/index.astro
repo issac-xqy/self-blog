@@ -1,32 +1,38 @@
 ---
 import { SITE } from "../site.config.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSection from "../components/HeroSection.astro";
 import PostCard from "../components/PostCard.astro";
-import { getAllPosts } from "../content/index.ts";
+import { getAllPosts, getAllTags } from "../content/index.ts";
 
 const posts = await getAllPosts();
+const tags = await getAllTags();
 ---
 
 <BaseLayout
   title="首页"
   description={SITE.description}
 >
+  <HeroSection postCount={posts.length} tagCount={tags.length} />
+
   <div class="container-blog py-12">
-    <section class="mb-12">
-      <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
         最近文章
-      </h1>
-      <p class="mt-2 text-gray-500 dark:text-gray-400">
-        {SITE.description}。
+      </h2>
+      <p class="mt-1 text-sm text-gray-400 dark:text-gray-500">
+        共 {posts.length} 篇文章
       </p>
     </section>
 
     <section>
       {
         posts.length === 0 ? (
-          <p class="text-gray-400">还没有文章。</p>
+          <p class="text-sm text-gray-400">还没有文章。</p>
         ) : (
-          posts.map((post) => <PostCard post={post} />)
+          <div class="stagger-children">
+            {posts.map((post, i) => <PostCard post={post} index={i} />)}
+          </div>
         )
       }
     </section>

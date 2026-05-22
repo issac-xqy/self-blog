@@ -1,0 +1,13 @@
+<div class="reading-progress" id="reading-progress"></div>
+
+<script>
+  function updateProgress() {
+    const el = document.getElementById("reading-progress");
+    if (!el) return;
+    const h = document.documentElement;
+    const total = h.scrollHeight - h.clientHeight;
+    el.style.width = total > 0 ? `${Math.round((h.scrollTop / total) * 100)}%` : "0%";
+  }
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  updateProgress();
+</script>

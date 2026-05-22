@@ -20,14 +20,29 @@ const posts = await getPostsByTag(tag);
   description={`带有标签 "${tag}" 的文章列表。`}
 >
   <div class="container-blog py-12">
-    <h1 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-      标签: {tag}
-    </h1>
-    <p class="mb-8 text-gray-500 dark:text-gray-400">
-      共 {posts.length} 篇文章
-    </p>
+    <div class="mb-10">
+      <a href="/tags/" class="mb-2 inline-flex items-center gap-1 text-xs text-gray-400 no-underline transition-colors hover:text-accent dark:hover:text-accent-dark">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        所有标签
+      </a>
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+        {tag}
+      </h1>
+      <p class="mt-1 text-sm text-gray-400 dark:text-gray-500">
+        共 {posts.length} 篇文章
+      </p>
+    </div>
+
     <section>
-      {posts.map((post) => <PostCard post={post} />)}
+      {
+        posts.length === 0 ? (
+          <p class="text-sm text-gray-400">没有找到相关文章。</p>
+        ) : (
+          <div class="stagger-children">
+            {posts.map((post, i) => <PostCard post={post} index={i} />)}
+          </div>
+        )
+      }
     </section>
   </div>
 </BaseLayout>

@@ -53,7 +53,7 @@
   @apply border-gray-700 text-gray-400;
 }
 
-/* ── Table of contents ── */
+/* ── Table of contents (inline) ── */
 .toc {
   @apply text-sm leading-relaxed;
 }
@@ -69,20 +69,61 @@
   @apply font-medium text-accent;
 }
 
-/* ── Post card hover ── */
-.post-card:hover .post-card-title {
-  @apply text-accent;
-}
-
 /* ── Tags ── */
 .tag-badge {
-  @apply inline-block rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 no-underline transition-colors hover:bg-accent hover:text-white;
+  @apply inline-block rounded-full px-2.5 py-0.5 text-xs font-medium no-underline transition-all duration-200;
+  background: #f1f5f9;
+  color: #475569;
+}
+.tag-badge:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-1px);
 }
 .dark .tag-badge {
-  @apply bg-gray-800 text-gray-400;
+  background: #1e293b;
+  color: #94a3b8;
 }
 .dark .tag-badge:hover {
-  @apply bg-accent-dark text-white;
+  background: #60a5fa;
+  color: #0f172a;
+}
+
+/* ── Share buttons ── */
+.share-btn {
+  @apply inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-500 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent;
+}
+.dark .share-btn {
+  @apply border-gray-700 text-gray-400;
+}
+.dark .share-btn:hover {
+  @apply border-accent-dark text-accent-dark;
+}
+
+/* ── Prose enhancements ── */
+.prose h2 {
+  @apply mt-10 mb-4 scroll-mt-24;
+}
+.prose h3 {
+  @apply mt-8 mb-3 scroll-mt-24;
+}
+.prose h4 {
+  @apply scroll-mt-24;
+}
+.prose img {
+  @apply rounded-lg;
+}
+.prose blockquote {
+  @apply border-l-[3px] border-accent font-normal not-italic;
+}
+.dark .prose blockquote {
+  @apply border-accent-dark;
+}
+.prose code:not(pre code) {
+  @apply rounded bg-gray-100 px-1.5 py-0.5 text-sm font-normal text-accent dark:bg-gray-800 dark:text-accent-dark;
+}
+.prose a {
+  @apply text-accent no-underline decoration-1 underline-offset-2 transition-colors hover:text-blue-700 dark:text-accent-dark dark:hover:text-blue-300;
 }
 
 /* ── Print ── */
