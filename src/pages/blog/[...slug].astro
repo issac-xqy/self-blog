@@ -20,10 +20,11 @@ const { Content, headings } = await post.render();
 const relatedPosts = await getRelatedPosts(post);
 const postUrl = new URL(`/blog/${postSlug(post)}/`, Astro.site).href;
 
-// Estimate reading time: ~300 chars/min for Chinese
 const bodyText = post.body ?? "";
 const charCount = bodyText.replace(/\s/g, "").length;
 const readingTime = Math.max(1, Math.round(charCount / 300));
+
+const hasToc = headings && headings.filter((h: any) => h.depth >= 2 && h.depth <= 4).length > 1;
 ---
 
 <BaseLayout
@@ -36,10 +37,12 @@ const readingTime = Math.max(1, Math.round(charCount / 300));
   canonicalURL={postUrl}
 >
   <div class="container-blog py-12">
-    <div class="flex gap-10">
+    <div class={`${hasToc ? "xl:flex xl:gap-10" : ""}`}>
       <!-- Main content -->
       <article class="min-w-0 flex-1">
-        <!-- Header -->
+        <!-- Mobile TOC -->
+        {hasToc && <TableOfContents headings={headings} />}
+
         <header class="mb-10">
           <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
             {title}
@@ -51,11 +54,7 @@ const readingTime = Math.max(1, Math.round(charCount / 300));
             <time datetime={pubDate.toISOString()}>
               {formatDate(pubDate)}
             </time>
-            {
-              updatedDate && (
-                <span>· 更新于 {formatDate(updatedDate)}</span>
-              )
-            }
+            {updatedDate && <span>· 更新于 {formatDate(updatedDate)}</span>}
             <span class="text-gray-300 dark:text-gray-700">·</span>
             <span>{readingTime} 分钟阅读</span>
           </div>
@@ -68,13 +67,6 @@ const readingTime = Math.max(1, Math.round(charCount / 300));
           }
         </header>
 
-        <!-- Mobile TOC -->
-        {
-          headings && headings.length > 1 && (
-            <TableOfContents headings={headings} />
-          )
-        }
-
         <!-- Content -->
         <div class="prose prose-gray max-w-none dark:prose-invert">
           <Content />
@@ -86,24 +78,20 @@ const readingTime = Math.max(1, Math.round(charCount / 300));
           <div class="flex flex-wrap gap-2">
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(postUrl)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="share-btn"
+              target="_blank" rel="noopener noreferrer" class="share-btn"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               X
             </a>
             <a
               href={`https://service.weibo.com/share/share.php?title=${encodeURIComponent(title)}&url=${encodeURIComponent(postUrl)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="share-btn"
+              target="_blank" rel="noopener noreferrer" class="share-btn"
             >
               微博
             </a>
             <button
               class="share-btn"
-              onclick={`navigator.clipboard.writeText('${postUrl}').then(()=>{this.textContent='已复制!'}).catch(()=>{this.textContent='复制失败'})`}
+              onclick={`navigator.clipboard.writeText('${postUrl}').then(()=>{this.textContent='已复制!'})`}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
               复制链接
@@ -115,21 +103,15 @@ const readingTime = Math.max(1, Math.round(charCount / 300));
         {
           relatedPosts.length > 0 && (
             <aside class="mt-12 border-t border-gray-200 pt-8 dark:border-gray-800">
-              <h2 class="mb-5 text-lg font-semibold text-gray-900 dark:text-gray-100">
-                相关文章
-              </h2>
+              <h2 class="mb-5 text-lg font-semibold text-gray-900 dark:text-gray-100">相关文章</h2>
               {relatedPosts.map((p, i) => <PostCard post={p} index={i} />)}
             </aside>
           )
         }
       </article>
 
-      <!-- Desktop TOC sidebar -->
-      {
-        headings && headings.length > 1 && (
-          <TableOfContents headings={headings} />
-        )
-      }
+      <!-- Desktop TOC sidebar (only shown when there are headings) -->
+      {hasToc && <TableOfContents headings={headings} />}
     </div>
   </div>
 </BaseLayout>
